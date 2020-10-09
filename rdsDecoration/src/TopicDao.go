@@ -15,6 +15,10 @@ func MustLogin() gin.HandlerFunc {  //必须登录
 	}
 }
 
+
+//3->2->1
+
+//6->4->1
 func GetTopicDetail(c *gin.Context)  {
 	tid:=c.Param("topic_id")
 	topics:=Topics{}

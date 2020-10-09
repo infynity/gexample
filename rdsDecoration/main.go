@@ -9,8 +9,6 @@ import (
 	"gopkg.in/go-playground/validator.v8"
 	"log"
 	"net/http"
-	"path/filepath"
-	"strings"
 	"time"
 	. "topic.jtthink.com/src"
 )
@@ -28,8 +26,7 @@ func main2()  {
 
 func main()  {
 	router:=gin.Default()
-	filepath.Match()
-	strings.Replace()
+
 	if v, ok := binding.Validator.Engine().(*validator.Validate); ok {
 		v.RegisterValidation("topicurl", TopicUrl)
 		v.RegisterValidation("topics", TopicsValidate) //验证长度
