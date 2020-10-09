@@ -20,6 +20,9 @@ func Err() error {
 }
 
 func main() {
+
+	fmt.Println(32/10)
+	return
 	e := Err()
 	if e != nil {
 		fmt.Println(e.Error())
