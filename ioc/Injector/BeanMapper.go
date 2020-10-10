@@ -6,7 +6,8 @@ import (
 
 
 
- type BeanMapper map[reflect.Type]reflect.Value
+type BeanMapper map[reflect.Type]reflect.Value
+
 func(this BeanMapper) add(bean interface{}){
 	t:=reflect.TypeOf(bean)
 	if t.Kind()!=reflect.Ptr{

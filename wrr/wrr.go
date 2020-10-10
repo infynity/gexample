@@ -51,7 +51,7 @@ func main() {
 
 	s_time := time.Now().Unix()
 
-	for i := 0; i < 100; i++ {
+	for i := 0; i < 103; i++ {
 		s := getDns()
 		fmt.Println(s)
 		if note[s] != 0 {
