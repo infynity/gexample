@@ -39,9 +39,11 @@ func(this *BeanFactoryImpl) Apply(bean interface{}) {
 		return
 	}
 	v:=reflect.ValueOf(bean)
+
 	if v.Kind()==reflect.Ptr{
 		v=v.Elem()
 	}
+
 	if v.Kind()!=reflect.Struct {
 		return
 	}
