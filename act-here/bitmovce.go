@@ -45,7 +45,7 @@ func maina(){
 
 //-------------------------------------------------------------------------
 
-func main() {
+func mainqw() {
 
 	var s1 []int
 	s2 := make([]int,0)
@@ -56,3 +56,17 @@ func main() {
 	fmt.Printf("%v\n", (*(*reflect.SliceHeader)(unsafe.Pointer(&s2))).Data==(*(*reflect.SliceHeader)(unsafe.Pointer(&s4))).Data)
 }
 
+
+//-------------------------------------------------------------------------
+
+func mainls() {
+	s := []int{1,2,3,4,5}
+	for _, v:=range s {
+		s =append(s, v)
+		fmt.Printf("len(s)=%v\n",len(s))
+	}
+}
+
+
+
+//-------------------------------------------------------------------------
