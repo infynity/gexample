@@ -1,6 +1,9 @@
-package autil
+package utils
 
-import "testing"
+import (
+	"fmt"
+	"testing"
+)
 
 /*func Test_Problem104(t *testing.T) {
 
@@ -52,4 +55,32 @@ func TestTmd(t *testing.T){
 			t.Logf("this ok,%+v",tt.param)
 		}
 	}
+}
+
+
+func TestTravers(t *testing.T){
+
+	//fmt.Println(levelOrder(buildFullTree()))
+
+	var a lgd
+	fmt.Println(a.TraverseByLevel102(buildFullTree()))
+
+
+	fmt.Println(a.reverseTraverse107(buildFullTree()))
+}
+
+
+func TestConverseToTree(t *testing.T){
+
+}
+
+//    1
+// 2    5
+//
+func TestAct(t *testing.T){
+	var e lgd
+	arr := []int{}
+	e.TreeToArr(buildBinSearTree(),&arr)
+
+	fmt.Println(arr)
 }

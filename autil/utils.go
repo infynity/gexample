@@ -1,4 +1,4 @@
-package autil
+package utils
 
 import (
 	"bytes"
@@ -99,19 +99,39 @@ func MakeQueryValueForIDGen(gen IDGenerator, isOr bool) *LogQueryValue {
 	if len(idList) == 0 {
 		idList = []int{-1}
 	}
+	//var sliceNoInit []string
+	//sliceInit := []string{}
 	return &LogQueryValue{
 		Value: idList,
 		IsOr:  isOr,
 		Stmt:  " IN (?)",
 	}
-}
 
+}
+func sortedArrayToBST(nums []int) *TreeNode {
+	if len(nums) == 0 {
+		return nil
+	}
+	return &TreeNode{Val: nums[len(nums)/2], Left: sortedArrayToBST(nums[:len(nums)/2]), Right: sortedArrayToBST(nums[len(nums)/2+1:])}
+}
 // MakeQueryValueForList MakeQueryValueForList
 func MakeQueryValueForList(list interface{}) *LogQueryValue {
 	return &LogQueryValue{
 		Value: list,
 		IsOr:  false,
 		Stmt:  " IN (?)",
+	}
+}
+
+func (e *lgd)TreeToArr(root *TreeNode,arr *[]int){
+	fmt.Printf("运行到这里了 head = %v array = %v\n", root, arr)
+
+ 	*arr = append(*arr,root.Val)
+	if root.Left!=nil{
+		e.TreeToArr(root.Left,arr)
+	}
+	if root.Right!=nil{
+		e.TreeToArr(root.Right,arr)
 	}
 }
 
@@ -151,6 +171,7 @@ func JSONMapDecode(input interface{}, output interface{}) error {
 	dec, _ := mapstructure.NewDecoder(config)
 	return dec.Decode(input)
 }
+
 //d[2] = d[1] +d[0]
 //d[3] = d[2] +d[1]
 // CompareVersion 比较版本
@@ -178,6 +199,16 @@ func Sha1Encrypt(str string) string {
 	sha1 := sha1.New()
 	sha1.Write([]byte(str))
 	return fmt.Sprintf("%x", sha1.Sum([]byte("")))
+}
+
+func (e *lgd) converseSortedArrToBst(arr []int)*TreeNode{
+
+	if len(arr)==0{
+		return nil
+	}
+
+	return &TreeNode{arr[len(arr)/2],e.converseSortedArrToBst(arr[:len(arr)/2]),e.converseSortedArrToBst(arr[(len(arr)/2)+1:])}
+
 }
 
 // Md5Encrypt md5加密字符串
@@ -278,7 +309,6 @@ func GetRandomString(l int) string {
 
 func maxSubArray1(nums []int) int {
 
-
 	if len(nums) == 1 {
 		return nums[0]
 	}
@@ -296,7 +326,6 @@ func maxSubArray1(nums []int) int {
 
 	return maxSum
 }
-
 
 // ArrayDiff 数组差集
 func ArrayDiff(array1, array2 []int) []int {
@@ -338,14 +367,14 @@ func maxSubArray(nums []int) int {
 
 //给定一个由整数组成的非空数组所表示的非负整数，在该数的基础上加一。最高位数字存放在数组的首位， 数组中每个元素只存储单个数字。你可以假设除了整数 0 之外，这个整数不会以零开头。
 
-
 //798   [ 7  9  8 ]
-func max(a int,b int) int {
+func max(a int, b int) int {
 	if a > b {
 		return a
 	}
 	return b
 }
+
 // Implode 数组to字符串拼接
 func Implode(list interface{}, seq string) string {
 	listValue := reflect.Indirect(reflect.ValueOf(list))
@@ -387,6 +416,7 @@ func climbStairs(n int) int {
 	}
 	return dp[n]
 }
+
 // SerializeGolangType serialize for golang type
 func SerializeGolangType(conf interface{}) string {
 	b, err := json.Marshal(conf)
@@ -432,10 +462,11 @@ func StructToMap(obj interface{}) map[string]interface{} {
 	return data
 }
 
-func dataPr(n int) int{
+func dataPr(n int) int {
 
 	return 0
 }
+
 //ExTime 自定义时间解析
 type ExTime struct {
 	time.Time
@@ -598,17 +629,34 @@ func Substr(str string, start int, end int) string {
 	return string(rs[start:end])
 }
 
-func reverseNode(node *TreeNode)*TreeNode{
+func reverseNode(node *TreeNode) *TreeNode {
 
-	if node==nil{
+	if node == nil {
 		return nil
 	}
 	reverseNode(node.Left)
 	reverseNode(node.Right)
-	node.Left , node.Right = node.Right,node.Left
+	node.Left, node.Right = node.Right, node.Left
 	return node
 
+}
 
+type lgd struct {
+	param int
+	tnum  int
+}
+
+func (e *lgd) reverseTraverse107(t *TreeNode) [][]int{
+
+	slice := e.TraverseByLevel102(buildFullTree())
+
+	lenth := len(slice)
+
+	res := [][]int{}
+	for i:=lenth-1;i>=0;i--{
+		res=append(res,slice[i])
+	}
+	return res
 }
 
 // GetCurrentPath 获取当前可执行程序的当前路径
@@ -636,17 +684,95 @@ func GetCurrentPath() string {
 	//fmt.Println("path333:", path)
 	return string(path[0 : i+1])
 }
-
-
-func invertTree(root *TreeNode) *TreeNode {
-	if root == nil {
-		return nil
+func levelOrderBottom(root *TreeNode) [][]int {
+	tmp := levelOrder(root)
+	res := [][]int{}
+	for i := len(tmp) - 1; i >= 0; i-- {
+		res = append(res, tmp[i])
 	}
-	invertTree(root.Left)
-	invertTree(root.Right)
-	root.Left, root.Right = root.Right, root.Left
-	return root
+	return res
 }
+
+func levelOrder(root *TreeNode) [][]int {
+	if root == nil {
+		return [][]int{}
+	}
+	queue := []*TreeNode{}
+	queue = append(queue, root)
+	curNum, nextLevelNum, res, tmp := 1, 0, [][]int{}, []int{}
+
+	for len(queue) != 0 {
+		if curNum > 0 {
+			node := queue[0]
+			if node.Left != nil {
+				queue = append(queue, node.Left)
+				nextLevelNum++
+			}
+			if node.Right != nil {
+				queue = append(queue, node.Right)
+				nextLevelNum++
+			}
+			curNum--
+			tmp = append(tmp, node.Val)
+			queue = queue[1:]
+		}
+		if curNum == 0 {
+			res = append(res, tmp)
+			curNum = nextLevelNum
+			nextLevelNum = 0
+			tmp = []int{}
+		}
+	}
+	return res
+}
+
+
+func (e *lgd)TraverseByLevel102(root *TreeNode)[][]int{
+
+	queue:=[]*TreeNode{}
+	queue=append(queue,root)
+
+	res := [][]int{}
+	tmp := []int{}
+	nextLevelNum :=0
+	curNum :=1
+	for len(queue)!=0{
+
+		if curNum>0{
+			node := queue[0]
+			if  node.Left!=nil{
+				queue = append(queue,node.Left)
+				nextLevelNum++
+			}
+			if  node.Right!=nil{
+				queue = append(queue,node.Right)
+				nextLevelNum++
+			}
+			curNum--
+			tmp = append(tmp,node.Val)
+			queue=queue[1:]
+
+		}
+
+		if curNum==0{
+
+			res = append(res,tmp)
+			curNum=nextLevelNum
+			nextLevelNum=0
+			tmp = []int{}
+
+		}
+
+
+
+
+	}
+
+return res
+
+}
+
+
 
 //     1
 //   2   3
@@ -712,6 +838,17 @@ func Multi64(str1, str2 string) (result string) {
 	return
 }
 
+func invertTree(root *TreeNode) *TreeNode {
+	if root == nil {
+		return nil
+	}
+	invertTree(root.Left)
+	invertTree(root.Right)
+	root.Left, root.Right = root.Right, root.Left
+	return root
+}
+
+
 
 func deleteDuplicates(head *ListNode) *ListNode {
 	cur := head
@@ -731,28 +868,24 @@ func deleteDuplicates(head *ListNode) *ListNode {
 	return head
 }
 
+func getDepth(p *TreeNode) int {
 
-func getDepth(p *TreeNode)int{
-
-	if p==nil{
+	if p == nil {
 		return 0
 	}
 
 	hl := getDepth(p.Left)
-	hr:=  getDepth(p.Right)
+	hr := getDepth(p.Right)
 
-	return max(hl,hr)+1
+	return max(hl, hr) + 1
 }
 
 type ListNode struct {
-	Val int
+	Val  int
 	Next *ListNode
 }
 
-
-
-
-func  buildTr() *TreeNode{
+func buildTr() *TreeNode {
 	head := &TreeNode{Val: 1}
 
 	head.Left = &TreeNode{Val: 2}
@@ -764,14 +897,45 @@ func  buildTr() *TreeNode{
 }
 
 
-func  buildTr2() *TreeNode{
+func buildFullTree()*TreeNode{
+	head := &TreeNode{Val: 1}
+
+	head.Left = &TreeNode{Val: 2}
+	head.Right = &TreeNode{Val: 3}
+
+	head.Left.Left = &TreeNode{Val: 4}
+	head.Left.Right = &TreeNode{Val: 5}
+
+	head.Right.Left = &TreeNode{Val: 6}
+	head.Right.Right = &TreeNode{Val: 7}
+	return head
+}
+
+//-10, -3, 0, 5, 9
+func buildBinSearTree()*TreeNode {
+	head := &TreeNode{Val: 0}
+
+	head.Left = &TreeNode{Val: -3}
+	head.Right = &TreeNode{Val: 9}
+
+	head.Left.Left = &TreeNode{Val: -10}
+	//head.Left.Right = &TreeNode{Val: 5}
+
+	head.Right.Left = &TreeNode{Val: 5}
+	//head.Right.Right = &TreeNode{Val: 7}
+	return head
+}
+func buildTr2() *TreeNode {
 	head := &TreeNode{Val: 1}
 
 	return head
 }
-func  buildTr3() *TreeNode{
+func buildTr3() *TreeNode {
 	return nil
 }
+
+
+
 // GetAllFile 递归遍历指定目录
 func GetAllFile(pathname string, s []string) ([]string, error) {
 	rd, err := ioutil.ReadDir(pathname)
@@ -794,6 +958,7 @@ func GetAllFile(pathname string, s []string) ([]string, error) {
 	}
 	return s, nil
 }
+
 type TreeNode struct {
 	Val   int
 	Left  *TreeNode
@@ -812,5 +977,3 @@ func judgeSameTree(p *TreeNode, q *TreeNode) bool {
 		return false
 	}
 }
-
-
