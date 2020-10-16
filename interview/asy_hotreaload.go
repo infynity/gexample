@@ -20,6 +20,7 @@ var (
 
 	graceful = flag.Bool("graceful", false, "listen on fd open 3 (internal use only)")
 	message  = flag.String("message", "Hello World", "message to send")
+	//kms.uniontech.com:8900:Vlc1cGIyNTBaV05v
 )
 
 func handler(w http.ResponseWriter, r *http.Request) {

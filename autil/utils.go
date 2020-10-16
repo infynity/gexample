@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"math"
 	"math/rand"
 	"mime/multipart"
 	"os"
@@ -124,7 +125,7 @@ func MakeQueryValueForList(list interface{}) *LogQueryValue {
 }
 
 func (e *lgd)TreeToArr(root *TreeNode,arr *[]int){
-	fmt.Printf("运行到这里了 head = %v array = %v\n", root, arr)
+	fmt.Printf("运行到这里了 head = %v array = %v  addres = %p\n", root, arr,root)
 
  	*arr = append(*arr,root.Val)
 	if root.Left!=nil{
@@ -148,6 +149,55 @@ func IntListToString(list []int, sep string) string {
 	return strings.Join(strv, sep)
 }
 
+
+func (e *lgd)getDepthOfTree(node *TreeNode)int{
+	if node==nil{
+		return 0
+	}
+	l:=e.getDepthOfTree(node.Left)
+	r:=e.getDepthOfTree(node.Right)
+	return max(l,r)+1
+}
+
+func (e *lgd)checkBlcdTree110(node *TreeNode)bool	{
+	if node==nil{
+		return true
+	}
+
+
+	l:=e.getDepthOfTree(node.Left)
+	r:=e.getDepthOfTree(node.Right)
+
+	return  math.Abs(float64(l-r))<=1 && e.checkBlcdTree110(node.Left) && e.checkBlcdTree110(node.Right)
+}
+
+
+func (e *lgd)getMinDepthOfTree(node *TreeNode)int{
+
+	if node==nil{
+		return 0
+	}
+
+	if node.Left==nil{
+		return e.getMinDepthOfTree(node.Right)+1
+	}
+	if node.Right==nil{
+		return e.getMinDepthOfTree(node.Left)+1
+	}
+
+	l:=e.getMinDepthOfTree(node.Left)
+	r:=e.getMinDepthOfTree(node.Right)
+
+	return min(l,r)+1
+
+}
+
+func min(a,b int)int{
+	if a>b{
+		return b
+	}
+	return a
+}
 // JSONMapDecode 解析json map
 func JSONMapDecode(input interface{}, output interface{}) error {
 	stringToDateTimeHook := func(
@@ -344,6 +394,16 @@ func ArrayDiff(array1, array2 []int) []int {
 	}
 
 	return result
+}
+
+func (e *lgd)treePathSum(root *TreeNode,sum int)bool{
+	if root == nil {
+		return false
+	}
+	if root.Left == nil && root.Right == nil {
+		return sum == root.Val
+	}
+	return e.treePathSum(root.Left, sum-root.Val) || e.treePathSum(root.Right, sum-root.Val)
 }
 func maxSubArray(nums []int) int {
 	if len(nums) == 0 {
@@ -910,8 +970,11 @@ func buildFullTree()*TreeNode{
 	head.Right.Right = &TreeNode{Val: 7}
 	return head
 }
+//       0
+//   -3     9
+//-10     5
 
-//-10, -3, 0, 5, 9
+//-10, -3, 0, 5, 9    17   117
 func buildBinSearTree()*TreeNode {
 	head := &TreeNode{Val: 0}
 
@@ -922,7 +985,10 @@ func buildBinSearTree()*TreeNode {
 	//head.Left.Right = &TreeNode{Val: 5}
 
 	head.Right.Left = &TreeNode{Val: 5}
-	//head.Right.Right = &TreeNode{Val: 7}
+
+
+	head.Right.Right = &TreeNode{Val: 17}
+	head.Right.Right.Right = &TreeNode{Val: 117}
 	return head
 }
 func buildTr2() *TreeNode {

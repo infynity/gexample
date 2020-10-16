@@ -72,6 +72,12 @@ func TestTravers(t *testing.T){
 
 func TestConverseToTree(t *testing.T){
 
+	var e lgd
+	root := e.converseSortedArrToBst([]int{-10, -3, 0, 5, 9  ,  17  , 117})
+	fmt.Println(root)
+	arr := []int{}
+	e.TreeToArr(root,&arr)
+	fmt.Println(arr)
 }
 
 //    1
@@ -84,3 +90,8 @@ func TestAct(t *testing.T){
 
 	fmt.Println(arr)
 }
+
+
+//               5
+//       -3             17
+// -10       0       9        117
