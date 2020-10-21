@@ -32,6 +32,13 @@ import (
 }
 */
 
+func TestHuiwen(t *testing.T){
+	var a lgd
+
+	 //a.isPalindrome("A man, a plan, a canal: Panama")
+	 a.isPalindrome("")
+}
+
 type vt struct {
 	param *TreeNode
 	res  int

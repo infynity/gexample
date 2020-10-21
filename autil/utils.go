@@ -386,6 +386,48 @@ func InArray(s []interface{}, findValue interface{}) bool {
 	return false
 }
 
+
+func (e *lgd)isPalindrome(s string) bool {
+
+	s = strings.ToLower(s)
+
+	if len(s)==0{
+		return true
+	}
+	fmt.Println(len(s))
+	arr := []byte{}
+	for _,v:=range []byte(s){
+		if isChar(v){
+			arr = append(arr,v)
+		}
+	}
+	fmt.Println(arr)
+	fmt.Println(string(arr))
+	//return true
+	//arr := []rune(s)
+	lenth := len(arr)-1
+	if(lenth>=0){
+		for i:=0;i<=lenth/2;i++{
+
+			if arr[i]!=arr[lenth-i]{
+				return false
+			}
+		}
+	}
+
+
+	fmt.Println("true")
+	return true
+
+}
+
+// 判断 c 是否是字符或者数字
+func isChar(c byte) bool {
+	if ('a' <= c && c <= 'z') || ('0' <= c && c <= '9') {
+		return true
+	}
+	return false
+}
 // InIntArray 查找元素是否在数组中
 func InIntArray(s []int, findValue interface{}) bool {
 	for _, v := range s {
@@ -414,6 +456,25 @@ func SearchInStringArray(s []string, search string) int {
 	return -1
 }
 
+
+func (e *lgd)StockBestSell_122(prices []int) int {
+	profit := 0
+	for i := 0; i < len(prices)-1; i++ {
+
+		if prices[i+1] > prices[i] {
+			profit += prices[i+1] - prices[i]
+		}
+
+	}
+	return profit
+}
+//给定一个非空整数数组，除了某个元素只出现一次以外，其余每个元素均出现两次。找出那个只出现了一次的元素。
+//
+//要求算法时间复杂度是线性的，并且不使用额外的辅助空间。
+
+
+
+
 // GetRandomString 生成指定长度随机字符串
 func GetRandomString(l int) string {
 	str := "0123456789abcdefghijklmnopqrstuvwxyz"
@@ -426,6 +487,7 @@ func GetRandomString(l int) string {
 
 	return string(result)
 }
+
 
 func maxSubArray1(nums []int) int {
 
