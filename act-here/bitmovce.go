@@ -71,8 +71,20 @@ func mainls() {
 
 //-------------------------------------------------------------------------
 
-func main(){
-	fmt.Println(1^2^1)
-	fmt.Println(1^1)
-	fmt.Println(0^3)
+func main() {
+	fmt.Println(1 ^ 2 ^ 1) //2
+	fmt.Println(1 ^ 1)     //0
+	fmt.Println(0 ^ 3)     //3
+
+	tmpHash := make(map[string]int, 0)
+	tmpHash["asd"] = 1
+	tmpHash["dsa"] = 1
+
+	for index,_ := range tmpHash {
+
+		fmt.Println(index)
+	}
+
+	 ok := tmpHash["dsaa"]
+	fmt.Println(ok)
 }
