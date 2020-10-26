@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"reflect"
+	"strings"
+	"time"
 	"unsafe"
 )
 
@@ -71,7 +73,7 @@ func mainls() {
 
 //-------------------------------------------------------------------------
 
-func main() {
+func mainss() {
 	fmt.Println(1 ^ 2 ^ 1) //2
 	fmt.Println(1 ^ 1)     //0
 	fmt.Println(0 ^ 3)     //3
@@ -88,3 +90,32 @@ func main() {
 	 ok := tmpHash["dsaa"]
 	fmt.Println(ok)
 }
+
+
+//-------------------------------------------------------------------------
+
+
+func Bar(vl int, width int) string {
+	return fmt.Sprintf("%s%*c", strings.Repeat("█", vl/10), vl/10-width+1,
+		([]rune(" ▏▎▍▌▋▋▊▉█"))[vl%10])
+}
+
+func main() {
+
+	fmt.Println("2020-10-22">="2020-10-21")
+	return
+	fmt.Println(tnslc())
+
+	return
+	for i := 0; i <= 100; i++ {
+		fmt.Printf("\f%s%d%%", Bar(i, 20), i)
+		time.Sleep(200 * time.Millisecond)
+	}
+}
+
+
+func tnslc()(res []int){
+	//res = make([]int,0)
+	return res
+}
+//-------------------------------------------------------------------------
