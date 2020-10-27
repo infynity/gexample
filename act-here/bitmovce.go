@@ -156,8 +156,11 @@ func GetBetweenDates(sdate, edate string) []string {
 	return d
 }
 
-func main(){
+func main是(){
 	dates := GetBetweenDates("2020-09-02", "2020-10-31")
 	fmt.Println(dates)
 
 }
+
+
+//-------------------------------------------------------------------------
