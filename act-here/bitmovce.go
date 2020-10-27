@@ -100,7 +100,7 @@ func Bar(vl int, width int) string {
 		([]rune(" ▏▎▍▌▋▋▊▉█"))[vl%10])
 }
 
-func main() {
+func mainz() {
 
 	fmt.Println("2020-10-22">="2020-10-21")
 	return
@@ -118,4 +118,46 @@ func tnslc()(res []int){
 	//res = make([]int,0)
 	return res
 }
+
+
 //-------------------------------------------------------------------------
+func GetBetweenDates(sdate, edate string) []string {
+	d := []string{}
+	timeFormatTpl := "2006-01-02 15:04:05"
+	if len(timeFormatTpl) != len(sdate) {
+		timeFormatTpl = timeFormatTpl[0:len(sdate)]
+	}
+	date, err := time.Parse(timeFormatTpl, sdate)
+	if err != nil {
+		// 时间解析，异常
+		return d
+	}
+	date2, err := time.Parse(timeFormatTpl, edate)
+	if err != nil {
+		// 时间解析，异常
+		return d
+	}
+	if date2.Before(date) {
+		// 如果结束时间小于开始时间，异常
+		return d
+	}
+	// 输出日期格式固定
+	timeFormatTpl = "2006-01-02"
+	date2Str := date2.Format(timeFormatTpl)
+	d = append(d, date.Format(timeFormatTpl))
+	for {
+		date = date.AddDate(0, 0, 1)
+		dateStr := date.Format(timeFormatTpl)
+		d = append(d, dateStr)
+		if dateStr == date2Str {
+			break
+		}
+	}
+	return d
+}
+
+func main(){
+	dates := GetBetweenDates("2020-09-02", "2020-10-31")
+	fmt.Println(dates)
+
+}
