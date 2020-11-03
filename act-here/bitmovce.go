@@ -164,3 +164,44 @@ func main是(){
 
 
 //-------------------------------------------------------------------------
+
+
+func maindd(){
+	p:=5
+	ptr := &p
+	change(&p)
+	fmt.Println(&p,ptr,&ptr)
+	var ps *int
+	//ps =new(int)
+	*ps = 1 //Potential nil pointer dereference   todo panic
+
+
+
+}
+
+func change(a *int){
+	fmt.Println(a,&a)
+	*a = 0
+}
+
+
+//-------------------------------------------------------------------------
+
+
+func main(){
+	var a = 7.98
+	var p = &a
+	var pp = &p
+
+	fmt.Println("a = ", a)
+	fmt.Println("address of a = ", &a)
+
+	fmt.Println("p = ", p)
+	fmt.Println("address of p = ", &p)
+
+	fmt.Println("pp = ", pp)
+
+	// Dereferencing a pointer to pointer
+	fmt.Println("*pp = ", *pp)
+	fmt.Println("**pp = ", **pp)
+}
