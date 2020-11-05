@@ -207,3 +207,12 @@ func mainaa(){
 }
 
 //-------------------------------------------------------------------------
+
+type abs struct {
+
+}
+func main(){
+	var profile abs
+
+fmt.Println(profile)
+}
