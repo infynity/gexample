@@ -215,4 +215,6 @@ func main(){
 	var profile abs
 
 fmt.Println(profile)
+
+fmt.Println(223226 + 52213 +52925 +8285 +8866 )
 }
