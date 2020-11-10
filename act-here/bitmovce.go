@@ -8,68 +8,64 @@ import (
 	"unsafe"
 )
 
-func main2(){
-	fmt.Println(9>>1)
+func main2() {
+	fmt.Println(9 >> 1)
 	// 1001     100
-	fmt.Println(9<<1)
+	fmt.Println(9 << 1)
 	// 1001   10010
 }
+
 //-------------------------------------------------------------------------
 func main3() {
-	i := 10 //整形变量 i
+	i := 10  //整形变量 i
 	ip := &i //指向整型变量 i 的指针ip,包含了 i 的内存地址
-	fmt.Printf("main中i的值为：%v，i 的内存地址为：%v，i的指针的内存地址为：%v\n",i,ip,&ip)
+	fmt.Printf("main中i的值为：%v，i 的内存地址为：%v，i的指针的内存地址为：%v\n", i, ip, &ip)
 	modifyBypointer(ip)
-	fmt.Printf("main中i的值为：%v，i 的内存地址为：%v，i的指针的内存地址为：%v\n",i,ip,&ip)
+	fmt.Printf("main中i的值为：%v，i 的内存地址为：%v，i的指针的内存地址为：%v\n", i, ip, &ip)
 }
 
 func modifyBypointer(i *int) {
-	fmt.Printf("modifyBypointeri的值为：%v, i 的内存地址为：%v，i的指针的内存地址为：%v\n",*i,i,&i)
+	fmt.Printf("modifyBypointeri的值为：%v, i 的内存地址为：%v，i的指针的内存地址为：%v\n", *i, i, &i)
 	*i = 11
 }
 
 //-------------------------------------------------------------------------
 
-func maina(){
-	arr := [5]int{1,2,3,4,5}
+func maina() {
+	arr := [5]int{1, 2, 3, 4, 5}
 
-
-	fmt.Printf("%p\n",&arr)
+	fmt.Printf("%p\n", &arr)
 	slc := arr[:]
 	fmt.Println(&slc[0])
-	fmt.Printf("%p\n",&slc)
+	fmt.Printf("%p\n", &slc)
 
-	slc[2]=100
+	slc[2] = 100
 
-	fmt.Println(slc,arr)
+	fmt.Println(slc, arr)
 }
-
 
 //-------------------------------------------------------------------------
 
 func mainqw() {
 
 	var s1 []int
-	s2 := make([]int,0)
-	s4 := make([]int,0)
+	s2 := make([]int, 0)
+	s4 := make([]int, 0)
 
-	fmt.Printf("s1 pointer:%+v, s2 pointer:%+v, s4 pointer:%+v, \n", *(*reflect.SliceHeader)(unsafe.Pointer(&s1)),*(*reflect.SliceHeader)(unsafe.Pointer(&s2)),*(*reflect.SliceHeader)(unsafe.Pointer(&s4)))
-	fmt.Printf("%v\n", (*(*reflect.SliceHeader)(unsafe.Pointer(&s1))).Data==(*(*reflect.SliceHeader)(unsafe.Pointer(&s2))).Data)
-	fmt.Printf("%v\n", (*(*reflect.SliceHeader)(unsafe.Pointer(&s2))).Data==(*(*reflect.SliceHeader)(unsafe.Pointer(&s4))).Data)
+	fmt.Printf("s1 pointer:%+v, s2 pointer:%+v, s4 pointer:%+v, \n", *(*reflect.SliceHeader)(unsafe.Pointer(&s1)), *(*reflect.SliceHeader)(unsafe.Pointer(&s2)), *(*reflect.SliceHeader)(unsafe.Pointer(&s4)))
+	fmt.Printf("%v\n", (*(*reflect.SliceHeader)(unsafe.Pointer(&s1))).Data == (*(*reflect.SliceHeader)(unsafe.Pointer(&s2))).Data)
+	fmt.Printf("%v\n", (*(*reflect.SliceHeader)(unsafe.Pointer(&s2))).Data == (*(*reflect.SliceHeader)(unsafe.Pointer(&s4))).Data)
 }
-
 
 //-------------------------------------------------------------------------
 
 func mainls() {
-	s := []int{1,2,3,4,5}
-	for _, v:=range s {
-		s =append(s, v)
-		fmt.Printf("len(s)=%v\n",len(s))
+	s := []int{1, 2, 3, 4, 5}
+	for _, v := range s {
+		s = append(s, v)
+		fmt.Printf("len(s)=%v\n", len(s))
 	}
 }
-
-
 
 //-------------------------------------------------------------------------
 
@@ -82,18 +78,16 @@ func mainss() {
 	tmpHash["asd"] = 1
 	tmpHash["dsa"] = 1
 
-	for index,_ := range tmpHash {
+	for index, _ := range tmpHash {
 
 		fmt.Println(index)
 	}
 
-	 ok := tmpHash["dsaa"]
+	ok := tmpHash["dsaa"]
 	fmt.Println(ok)
 }
 
-
 //-------------------------------------------------------------------------
-
 
 func Bar(vl int, width int) string {
 	return fmt.Sprintf("%s%*c", strings.Repeat("█", vl/10), vl/10-width+1,
@@ -102,7 +96,7 @@ func Bar(vl int, width int) string {
 
 func mainz() {
 
-	fmt.Println("2020-10-22">="2020-10-21")
+	fmt.Println("2020-10-22" >= "2020-10-21")
 	return
 	fmt.Println(tnslc())
 
@@ -113,12 +107,10 @@ func mainz() {
 	}
 }
 
-
-func tnslc()(res []int){
+func tnslc() (res []int) {
 	//res = make([]int,0)
 	return res
 }
-
 
 //-------------------------------------------------------------------------
 func GetBetweenDates(sdate, edate string) []string {
@@ -156,39 +148,33 @@ func GetBetweenDates(sdate, edate string) []string {
 	return d
 }
 
-func main是(){
+func main是() {
 	dates := GetBetweenDates("2020-09-02", "2020-10-31")
 	fmt.Println(dates)
 
 }
 
-
 //-------------------------------------------------------------------------
 
-
-func maindd(){
-	p:=5
+func maindd() {
+	p := 5
 	ptr := &p
 	change(&p)
-	fmt.Println(&p,ptr,&ptr)
+	fmt.Println(&p, ptr, &ptr)
 	var ps *int
 	//ps =new(int)
 	*ps = 1 //Potential nil pointer dereference   todo panic
 
-
-
 }
 
-func change(a *int){
-	fmt.Println(a,&a)
+func change(a *int) {
+	fmt.Println(a, &a)
 	*a = 0
 }
 
-
 //-------------------------------------------------------------------------
 
-
-func mainaa(){
+func mainaa() {
 	var a = 7.98
 	var p = &a
 	var pp = &p
@@ -209,18 +195,18 @@ func mainaa(){
 //-------------------------------------------------------------------------
 
 type abs struct {
-
 }
-func main(){
+
+func main() {
 	var profile abs
 
-fmt.Println(profile)
+	fmt.Println(profile)
 
-fmt.Println(223226 + 52213 +52925 +8285 +8866 )
+	fmt.Println(223226 + 52213 + 52925 + 8285 + 8866)
 
-ts := []int{2,3,4}
+	ts := []int{2, 3, 4}
 
-for _,v:=range ts{
-	fmt.Println(v)
-}
+	for _, v := range ts {
+		fmt.Println(v)
+	}
 }
