@@ -217,4 +217,10 @@ func main(){
 fmt.Println(profile)
 
 fmt.Println(223226 + 52213 +52925 +8285 +8866 )
+
+ts := []int{2,3,4}
+
+for _,v:=range ts{
+	fmt.Println(v)
+}
 }
