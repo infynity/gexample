@@ -212,6 +212,8 @@ func (l *LogProcess) Process() {
 			log.Println("ParseInLocation fail:", err.Error(), ret[4])
 			continue
 		}
+
+
 		message.TimeLocal = t
 
 		byteSent, _ := strconv.Atoi(ret[8])
