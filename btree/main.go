@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"ruok/btree/Tree"
 	"fmt"
 )
@@ -20,6 +21,11 @@ func main()  {
     	root.Right.Right.ConnectLeft(6)
 		root.Right.Right.Left.ConnectLeft(5)
 	}
+
+
+	log.Println(struct {
+
+	}{})
     fmt.Println(root.Level())
     root.Preorder()
     fmt.Println()
