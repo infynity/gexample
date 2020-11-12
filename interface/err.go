@@ -12,6 +12,10 @@ func (e *Error) Error() string {
 func (e *Error) Error2() string {
 	return e.msg
 }
+func (e *Error) Error3() string{
+	return ""
+}
+
 
 type ff interface {
 	Error() string
