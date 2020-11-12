@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log"
 	"net"
 	"net/url"
 )
@@ -36,4 +37,7 @@ func main() {
 	m, _ := url.ParseQuery(u.RawQuery)
 	fmt.Println(m)
 	fmt.Println(m["k"][0])
+
+
+	log.Println(" i win 5 w *100")
 }
