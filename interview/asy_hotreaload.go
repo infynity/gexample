@@ -38,7 +38,7 @@ func main() {
 	server = &http.Server{Addr: ":3000"}
 
 	// 设置监听器的监听对象（新建的或已存在的 socket 描述符）
-	if *graceful {
+	if *graceful {//so you now know cgo?
 		// 子进程监听父进程传递的 socket 描述符
 		log.Println("listening on the existing file descriptor 3")
 		// 子进程的 0, 1, 2 是预留给标准输入、标准输出、错误输出，故传递的 socket 描述符
