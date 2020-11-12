@@ -9,6 +9,14 @@ type Error struct {
 func (e *Error) Error() string {
 	return e.msg
 }
+func (e *Error) Error2() string {
+	return e.msg
+}
+
+type ff interface {
+	Error() string
+	Error2() string
+}
 
 func Call() *Error {
 	return nil//this cause panic
