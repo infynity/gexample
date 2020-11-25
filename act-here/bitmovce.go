@@ -1,8 +1,10 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"reflect"
+	"ruok/races"
 	"strings"
 	"time"
 	"unsafe"
@@ -198,6 +200,49 @@ type abs struct {
 }
 
 func main() {
+
+	currentTime := time.Now()
+	locShanghai, _ := time.LoadLocation("Asia/Shanghai") //指定定时任务执行时区
+
+	currentTime = time.Date(currentTime.Year(), currentTime.Month(), currentTime.Day(),0, 1, 0, 0, locShanghai)
+	fmt.Println(currentTime,"cst?")
+
+	//fmt.Println(currentTime.In(time.UTC),"utc")
+
+	cu2:=currentTime.In(time.UTC)
+
+	fmt.Println(cu2,"~~~~~~~~~~~~~~~",cu2.Format("2006-01-02 15:04:05"))
+
+
+	fmt.Println(cu2.In(locShanghai),currentTime.In(locShanghai),cu2.In(locShanghai).Format("2006-01-02 15:04:05"))
+
+	//return
+	fmt.Println("=========")
+
+	fmt.Println(cu2.In(locShanghai).Year(),"---",cu2.Day())
+
+
+	return
+	zeroTime := time.Date(currentTime.Year(), currentTime.Month(), currentTime.Day(),0, 0, 0, 0, time.UTC)
+	zeroTime2 := time.Date(currentTime.Year(), currentTime.Month(), currentTime.Day(),0, 0, 0, 0, locShanghai)
+fmt.Println(currentTime)
+fmt.Println(locShanghai,zeroTime,"\n",zeroTime2)
+	fmt.Println(zeroTime2.In(time.UTC))
+	fmt.Println("-----------------")
+	fmt.Println(zeroTime2.Sub(zeroTime))
+	fmt.Println(zeroTime.Sub(zeroTime2).Seconds())
+	return
+
+	cancel, _ := context.WithCancel(context.TODO())
+	cancel.Done()
+
+	races.Fucku()
+	return
+	a1,err:=time.Parse("2006-01-02 15:04:05","2020-11-22 10:00:00")
+
+	fmt.Println(a1,err)
+	return
+
 	var profile abs
 
 	fmt.Println(profile)
