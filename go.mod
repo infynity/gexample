@@ -7,9 +7,14 @@ replace sortssyn => ./sorts
 require (
 	github.com/HdrHistogram/hdrhistogram-go v0.9.0 // indirect
 	github.com/codahale/hdrhistogram v0.9.0 // indirect
+	github.com/coreos/etcd v3.3.25+incompatible // indirect
+	github.com/coreos/go-semver v0.3.0 // indirect
+	github.com/coreos/go-systemd v0.0.0-20191104093116-d3cd4ed1dbcf // indirect
+	github.com/coreos/pkg v0.0.0-20180928190104-399ea9e2e55f // indirect
 	github.com/garyburd/redigo v1.6.2
 	github.com/gin-gonic/gin v1.6.3
 	github.com/gomodule/redigo v2.0.0+incompatible
+	github.com/google/uuid v1.1.2 // indirect
 	github.com/halfrost/LeetCode-Go v0.0.0-20200817031238-7989003450a2
 	github.com/influxdata/influxdb v1.8.3
 	github.com/jinzhu/gorm v1.9.16

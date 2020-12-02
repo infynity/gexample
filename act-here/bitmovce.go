@@ -201,6 +201,7 @@ type abs struct {
 
 func main() {
 
+	fmt.Println(227979 + 60317 + 62116 + 8383 )
 	currentTime := time.Now()
 	locShanghai, _ := time.LoadLocation("Asia/Shanghai") //指定定时任务执行时区
 
