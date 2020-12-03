@@ -16,3 +16,8 @@ func main() {
 	fmt.Printf("此时goroutine个数= %d\n", runtime.NumGoroutine())
 }
 
+
+func me(){
+
+}
+
