@@ -199,7 +199,44 @@ func mainaa() {
 type abs struct {
 }
 
+type stringDescriptor struct {
+	str *byte
+	len int
+}
 func main() {
+	go func() {
+		select {
+
+		}
+		fmt.Println(123123)
+	}()
+
+	time.Sleep(3e9)
+	fmt.Println("string descriptor size in bytes:", unsafe.Sizeof(stringDescriptor{}))
+
+	var i int8
+	i=12
+	var o int32
+	o=323
+
+	io:=65555
+	var str string
+	str = "abcdefg"
+
+	str2 :="asdjkahsdhjalsdjhajsdhjasjhdahjsdljkhashlajd"
+	fmt.Println(unsafe.Sizeof(i))
+	fmt.Println(unsafe.Sizeof(o))
+	fmt.Println(unsafe.Sizeof(io))
+	fmt.Println(unsafe.Sizeof(str))
+	fmt.Println(unsafe.Sizeof(str2))
+	fmt.Println("==================")
+	fmt.Println(unsafe.Sizeof(&i))
+	fmt.Println(unsafe.Sizeof(&o))
+	fmt.Println(unsafe.Sizeof(&str))
+	fmt.Println(unsafe.Sizeof(&str2))
+	return
+
+
 
 	fmt.Println(227979 + 60317 + 62116 + 8383 )
 	currentTime := time.Now()
