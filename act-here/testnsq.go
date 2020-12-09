@@ -2,9 +2,8 @@ package main
 
 import (
 	"fmt"
-	"strconv"
-	"sync"
 	"github.com/nsqio/go-nsq"
+	"sync"
 )
 type NSQHandler struct {
 }
@@ -24,8 +23,8 @@ func testNSQ() {
 		config.MaxInFlight=9
 
 		//建立多个连接
-		for i := 0; i<10; i++ {
-			consumer, err := nsq.NewConsumer("test30", "struggle"+ strconv.Itoa(i+2020), config)
+		for i := 0; i<3; i++ {
+			consumer, err := nsq.NewConsumer("test30", "struggle-test-manyconsumer", config)
 			if nil != err {
 				fmt.Println("err", err)
 				return
@@ -46,6 +45,6 @@ func testNSQ() {
 	waiter.Wait()
 }
 func main() {
-	testNSQ();
+	testNSQ()
 
 }
