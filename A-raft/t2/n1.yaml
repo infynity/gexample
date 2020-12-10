@@ -1,0 +1,12 @@
+server-name: myraft-1
+server-id: 1
+logstore: /n1/log_store.bolt
+stablestore: /n1/stable_store.bolt
+transport: 127.0.0.1:3001
+servers:
+  - id: 1
+    address: 127.0.0.1:3001
+  - id: 2
+    address: 127.0.0.1:3002
+  - id: 3
+    address: 127.0.0.1:3003
