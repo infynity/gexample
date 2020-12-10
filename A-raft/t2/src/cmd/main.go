@@ -14,10 +14,19 @@ func main()  {
 	if cfile==""{
 		log.Fatal("config file error")
 	}
+
+
+	fmt.Println(cfile,"666")
+
+
 	 err:=lib.BootStrap(cfile)
+
+
 	 if err!=nil{
 	 	log.Fatal(err)
 	 }
+
+
 	 for {
 		fmt.Println("当前主节点是:",lib.RaftNode.Leader())
 	 	time.Sleep(time.Second*1)
