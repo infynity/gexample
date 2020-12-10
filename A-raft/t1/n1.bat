@@ -1,0 +1,1 @@
+go run src/cmd/n1.go
