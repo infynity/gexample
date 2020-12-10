@@ -204,7 +204,11 @@ type stringDescriptor struct {
 	len int
 }
 func main() {
+	ch := make(chan int)
 	go func() {
+		fmt.Println(123)
+		<-ch
+		fmt.Println("qqq")
 		select {
 
 		}
