@@ -4,10 +4,10 @@ import (
 	"encoding/json"
 	"github.com/hashicorp/raft"
 	"io"
+	"log"
 )
 
 type MyFSM struct {
-
 }
 //真正 持久化数据
 func(this *MyFSM) Apply(log *raft.Log) interface{}{
@@ -16,9 +16,15 @@ func(this *MyFSM) Apply(log *raft.Log) interface{}{
 	Set(req.Key,req.Value)  //真正执行  数据保存
 	return err
 }
-func(this *MyFSM) Snapshot() (raft.FSMSnapshot, error){
-	return nil,nil
+func(this *MyFSM) Snapshot() (snapshot raft.FSMSnapshot, err error){
+    return NewMySnapshot(),nil
+
 }
-func(this *MyFSM) Restore(io.ReadCloser) error{
+func(this *MyFSM) Restore(reader io.ReadCloser) error{
+	  err:=json.NewDecoder(reader).Decode(getCache())
+	  if err!=nil{
+	  	log.Println("restore error:",err)
+	  	return err
+	  }
 	return nil
 }

@@ -8,13 +8,20 @@ import (
 	"log"
 )
 
+type Server struct {
+	ID raft.ServerID
+	Address raft.ServerAddress
+	Http string
+}
+
 type Config struct {
 	ServerName string  `yaml:"server-name"`
 	ServerID string `yaml:"server-id"`
 	LogStore string
 	StableStore string
+	Snapshot string  //快照保存的位置
 	Transport string
-	Servers []raft.Server
+	Servers []Server
 	Port string
 }
 
