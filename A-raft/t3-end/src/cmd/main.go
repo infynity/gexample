@@ -18,6 +18,13 @@ func main()  {
 	 	log.Fatal(err)
 	 }
 	 //启动gin
-lib.CacheServer().Run(":" + lib.SysConfig.Port)
+	 lib.CacheServer().Run(":"+lib.SysConfig.Port)
+
+
+
+
+
+
+
 
 }

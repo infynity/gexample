@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"net/http/httputil"
+	"net/url"
 	"time"
 
 	"sync"
@@ -15,7 +17,6 @@ func getCache() *sync.Map  {
 	once.Do(func() {
 		Cache=&sync.Map{}
 	})
-
 	return Cache
 }
 func Set(key string ,value string ){
@@ -42,20 +43,26 @@ func CacheMiddleware() gin.HandlerFunc{
 		 		context.JSON(400,gin.H{"message":e})
 			}
 		 }()
-		 context.Next()
+		 if IsLeader(){
+			 context.Next()
+		 }else{
+				leader_http:=GetLeaderHttp()
+				addr,_:=url.Parse(leader_http)
+				p:=httputil.NewSingleHostReverseProxy(addr)
+				p.ServeHTTP(context.Writer,context.Request)
+			 context.Abort()
+		 }
+
 	}
 }
 func Error(err error)  {
 	 if err!=nil{
 	 	panic(err)
 	 }
-
 }
 func CacheServer() *gin.Engine{
 	r:=gin.New()
 	r.Use(CacheMiddleware())
-
-
 	r.Handle("POST","/get", func(context *gin.Context) {
 		 req:=NewCacheRequest()
 		 Error(context.BindJSON(req))
@@ -72,12 +79,8 @@ func CacheServer() *gin.Engine{
 		req:=NewCacheRequest()
 		Error(context.BindJSON(req))
 		// Set(req.Key,req.Value) //往我们的sync.Map里插值
-
-
 		req_bytes,_:=json.Marshal(req)
 		future:=RaftNode.Apply(req_bytes,time.Second)
-
-
 		if e:=future.Error();e!=nil{
 			Error(e)
 		}else{

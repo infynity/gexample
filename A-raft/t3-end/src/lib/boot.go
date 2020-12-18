@@ -1,6 +1,7 @@
 package lib
 
 import (
+	"fmt"
 	"github.com/hashicorp/go-hclog"
 	"github.com/hashicorp/raft"
 	"github.com/hashicorp/raft-boltdb"
@@ -28,6 +29,8 @@ func BootStrap(path string ) error  {
 		Level: hclog.LevelFromString("DEBUG"),
 		Output:os.Stderr,
 	})
+	config.SnapshotInterval=time.Second*5
+	config.SnapshotThreshold=2
 
 
 	//logStore保存配置
@@ -43,8 +46,12 @@ func BootStrap(path string ) error  {
 	if err!=nil{
 		return err
 	}
-	//不存储快照
-	snapshotStore:=raft.NewDiscardSnapshotStore()
+	//保存 文件快照
+	snapshotStore,err:= raft.NewFileSnapshotStore(root+SysConfig.Snapshot,1,nil)
+	if err!=nil{
+		return err
+	}
+
 
 	// 节点之间的通信
 	addr,err:=net.ResolveTCPAddr("tcp",SysConfig.Transport)
@@ -58,10 +65,14 @@ func BootStrap(path string ) error  {
 	if err!=nil{
 		return err
 	}
-	configuration := raft.Configuration{
-		Servers: SysConfig.Servers,
+	servers:=[]raft.Server{}  //改动点， 循环构建
+	for _,s:=range SysConfig.Servers{
+		servers=append(servers,raft.Server{ID:s.ID,Address:s.Address})
 	}
-
+	fmt.Println(SysConfig.Servers)
+	configuration := raft.Configuration{
+		Servers: servers,
+	}
 	RaftNode.BootstrapCluster(configuration)
 	return nil
 }
