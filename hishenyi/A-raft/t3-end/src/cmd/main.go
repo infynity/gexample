@@ -4,6 +4,7 @@ import (
 	"flag"
 	"goraft/src/lib"
 	"log"
+	"runtime"
 )
 func main()  {
 	cfile:=""
@@ -13,6 +14,7 @@ func main()  {
 		log.Fatal("config file error")
 	}
 
+	runtime.GC()
 	 err:=lib.BootStrap(cfile)
 	 if err!=nil{
 	 	log.Fatal(err)
