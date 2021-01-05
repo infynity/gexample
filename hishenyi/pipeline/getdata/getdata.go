@@ -3,7 +3,7 @@ package getdata
 import (
 	"encoding/csv"
 	"fmt"
-	"goplus/src/pipeline/AppInit"
+	"pipeline/AppInit"
 	"os"
 	"strconv"
 	"sync"
