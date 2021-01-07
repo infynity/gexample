@@ -45,5 +45,6 @@ func main() {
 func userAuthorizeHandler(w http.ResponseWriter, r *http.Request) (userID string, err error) {
 	w.Header().Set("Location", "/login")
 	w.WriteHeader(302)
+	return "123",nil  //这里处理登录验证  返回了userid即token 跳转getcode   (redirect uri)
 	return
 }
