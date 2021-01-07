@@ -10,6 +10,7 @@ import (
 	"github.com/go-oauth2/oauth2/v4/store"
 	"log"
 	"net/http"
+	"time"
 )
 var srv  *server.Server
 
@@ -63,6 +64,19 @@ func main() {
 			}
 		}
 		c.HTML(200, "login.html", data)
+	})
+
+
+	r.POST("/info", func(context *gin.Context) {
+		token,err:=srv.ValidationBearerToken(context.Request)
+		if err!=nil{
+			panic(err.Error())
+		}
+		ret:=gin.H{"user_id":token.GetUserID(),
+			"expire":int64(token.GetAccessCreateAt().Add(token.GetAccessExpiresIn()).Sub(time.Now()).Seconds()),
+			"jimo":token,
+		}
+		context.JSON(200,ret)
 	})
 	r.LoadHTMLGlob("public/*.html")
 	r.Run(":80")

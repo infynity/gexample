@@ -1,6 +1,7 @@
 package main
 
 import (
+	"ff/utils"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"golang.org/x/oauth2"
@@ -52,6 +53,15 @@ func main()  {
 		}
 	})
 	r.LoadHTMLGlob("public/*")
+
+
+	r.GET("/info", func(context *gin.Context) {
+		token:=context.Query("token")
+		ret:=utils.GetUserInfo(authServerURL+"/info",token,true)
+		context.Writer.Header().Add("Content-type","application/json")
+		context.String(200,ret)
+	})
+
 
 	r.Run(":8080")
 }
