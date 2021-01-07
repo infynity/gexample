@@ -31,9 +31,10 @@ func main()  {
 	loginUrl:="http://oauth.jtthink.com/auth?" +
 		"response_type=code&client_id=clienta&redirect_uri="+
 		codeUrl.String()
+	loginUrl2:=oauth2Config.AuthCodeURL("myclient")
 
-	fmt.Println(codeUrl)
-
+	fmt.Println(loginUrl2,123123)
+//http://oauth.jtthink.com/auth?client_id=clienta&redirect_uri=http%3A%2F%2Flocalhost%3A8080%2Fgetcode&response_type=code&scope=all&state=myclient 123123
 
 	r.GET("/", func(c *gin.Context) {
 		c.HTML(200, "a-index.html", map[string]string{
