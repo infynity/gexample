@@ -11,14 +11,15 @@ import (
 	"log"
 	"net/http"
 )
+var srv  *server.Server
 
 func main() {
 	manager := manage.NewDefaultManager()
 	manager.MustTokenStorage(store.NewMemoryTokenStore())
 
 	clientStore := store.NewClientStore()
-	err:=clientStore.Set("clienta1", &models.Client{
-		ID:     "clienta1",
+	err:=clientStore.Set("clienta", &models.Client{
+		ID:     "clienta",
 		Secret: "123",
 		Domain: "http://localhost:8080",
 	})
@@ -40,6 +41,12 @@ func main() {
 		}
 	})
 
+	r.POST("/token", func(context *gin.Context) {
+		err:=srv.HandleTokenRequest(context.Writer,context.Request)
+		if err!=nil{
+			panic(err.Error())
+		}
+	})
 
 	r.Any("/login", func(c *gin.Context) {
 		data:=map[string]string{
@@ -77,3 +84,12 @@ func userAuthorizeHandler(w http.ResponseWriter, r *http.Request) (userID string
 
 	return
 }
+
+
+/*
+func tokenHandler(w http.ResponseWriter, r *http.Request) {
+	err := srv.HandleTokenRequest(w, r)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+	}
+}*/
