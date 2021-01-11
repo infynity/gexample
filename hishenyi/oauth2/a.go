@@ -26,6 +26,9 @@ var (
 func main()  {
 	//fmt.Println(231348 + 41559 + 90641 + 10485 + 14681)
 	//return
+
+
+	//add new ssh key  for gerrit
 	r := gin.Default()
 	 //r.LoadHTMLGlob("public/*")
 
