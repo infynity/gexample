@@ -54,7 +54,7 @@ func main()  {
 		code,_:=c.GetQuery("code")
 		//	 c.JSON(200,gin.H{"code":code})
 		token,err:=oauth2Config.Exchange(c,code)
-		if err != nil {
+		 if err != nil {
 			c.JSON(400,gin.H{"message":err.Error()})
 		}else{
 			c.JSON(200,token)
