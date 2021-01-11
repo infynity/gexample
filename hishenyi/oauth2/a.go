@@ -34,6 +34,9 @@ func main()  {
 
 	codeUrl,_:=url.ParseRequestURI("http://localhost:8080/getcode")
 
+
+
+
 	loginUrl:="http://oauth.jtthink.com/auth?" +
 		"response_type=code&client_id=clienta&redirect_uri="+
 		codeUrl.String()
