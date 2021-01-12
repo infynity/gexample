@@ -72,21 +72,14 @@ func main() {
 		if err!=nil{
 			panic(err.Error())
 		}
-<<<<<<< HEAD
 
-=======
->>>>>>> c9d93be7e6a5cbb808c7e19c43f36ade3ae5e92c
 		ret:=gin.H{"user_id":token.GetUserID(),
 			"expire":int64(token.GetAccessCreateAt().Add(token.GetAccessExpiresIn()).Sub(time.Now()).Seconds()),
 			"jimo":token,
 		}
 		context.JSON(200,ret)
 	})
-<<<<<<< HEAD
 
-
-=======
->>>>>>> c9d93be7e6a5cbb808c7e19c43f36ade3ae5e92c
 	r.LoadHTMLGlob("public/*.html")
 	r.Run(":80")
 
