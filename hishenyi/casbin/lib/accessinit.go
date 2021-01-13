@@ -28,6 +28,7 @@ func initPolicy()  {
 	//E.AddPolicy("member","/depts","GET")
 	//E.AddPolicy("admin","/depts","POST")
 	//E.AddRoleForUser("zhangsan","member")
+
 	///下面 这部分是初始化 角色
 	m:=make([]*RoleRel,0)
 	GetRoles(0,&m,"") //获取角色 对应
@@ -45,6 +46,15 @@ func initPolicy()  {
 			log.Fatal(err)
 		}
 	}
+	///// 初始化 路由角色
+	routerRoles:=GetRouterRoles()
+	for _,rr:=range routerRoles{
+		_,err:=E.AddPolicy(rr.RoleName,rr.RouterUri,rr.RouterMethod)
+		if err!=nil{
+			log.Fatal(err)
+		}
+	}
+
 
 
 }
