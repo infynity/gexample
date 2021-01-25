@@ -204,6 +204,10 @@ type stringDescriptor struct {
 	len int
 }
 func main() {
+
+	fmt.Println(232954 + 41536 + 99342 + 17600 + 2900)
+	return
+
 	fmt.Println(226087  + 50358 +77853 +  9500 + 12000 )
 	return
 	ch := make(chan int)
