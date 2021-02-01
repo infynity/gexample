@@ -205,6 +205,23 @@ type stringDescriptor struct {
 }
 func main() {
 
+
+	//for  {
+	che := make(chan string)
+	go func() {
+		time.Sleep(1e9)
+
+		che<-"ddd"
+	}()
+	select {
+	case <-che:
+	//default:
+	//	fmt.Println("default case executed")
+	}
+
+	//}
+
+
 	fmt.Println(232954 + 41536 + 99342 + 17600 + 2900)
 	return
 
