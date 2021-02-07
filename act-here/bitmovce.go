@@ -208,20 +208,23 @@ func main() {
 
 	//for  {
 	che := make(chan string)
-	go func() {
-		time.Sleep(1e9)
-
-		che<-"ddd"
-	}()
+	//go func() {
+	//	time.Sleep(1e9)
+	//
+	//	che<-"ddd"
+	//}()
 	select {
 	case <-che:
+	default:
+
 	//default:
 	//	fmt.Println("default case executed")
 	}
 
 	//}
 
-
+	fmt.Println(231000 + 41600 + 94638 +18400 +2000 )
+	return
 	fmt.Println(232954 + 41536 + 99342 + 17600 + 2900)
 	return
 
