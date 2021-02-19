@@ -1,0 +1,1188 @@
+# 策略服务OpenAPI接口文档
+# 更新时间：2021-02-03
+swagger: '2.0'
+
+# This is your document metadata
+info:
+  version: "1.0.0"
+  title: 策略服务OpenAPI接口文档
+
+# the domain of the service
+host: 127.0.0.1
+# array of all schemes that your API supports
+schemes:
+  - https
+  - http
+# will be prefixed to all paths
+basePath: /api/v1/openapi/policy
+produces:
+  - application/json
+paths:
+  /{policy_group_info_id}:
+    # 请求方式
+    get:
+      # Describe this verb here. Note: you can use markdown
+      summary:
+        获取策略组详情，包括基本信息、执行范围、多个策略配置；
+        策略组执行范围内的组织与终端组需要从平台获取；
+      # 请求参数
+      parameters:
+        -
+          description: 策略组id
+          name: policy_group_info_id
+          in: path
+          required: true
+          type: number
+          format: int
+      responses:
+        # HTTP响应状态码
+        200:
+          description: 响应
+          schema:
+            type: object
+            properties:
+              code:
+                $ref: '#/definitions/response.Code'
+              msg:
+                $ref: '#/definitions/response.Msg'
+              data:
+                $ref: '#/definitions/response.PolicyGroupInfo'
+            example:
+              {
+                "code": 0,
+                "msg": "",
+                "data": {
+                  "number": "PG-000001",
+                  "name": "策略组示例1",
+                  "force_publish": true,
+                  "disable": false,
+                  "remark": "示例",
+                  "created_at": "2021-01-01 20:00:00",
+                  "updated_at": "2021-01-01 20:00:00",
+                  "scope": {
+                    "departments": [
+                    {
+                      "id": 10,
+                      "policy_key": "研发一部"
+                    },
+                    {
+                      "id": 11,
+                      "policy_key": "研发二部"
+                    },
+                    {
+                      "id": 13,
+                      "policy_key": "研发四部"
+                    }
+                    ],
+                    "pc_type": [
+                      1
+                    ],
+                    "os_archs": [
+                      "amd",
+                      "arm",
+                      "mips"
+                    ],
+                    "os_versions": [
+                      "1020",
+                      "1021",
+                      "1022",
+                      "1030"
+                    ],
+                    "exec_type": 2,
+                    "pc_groups": [
+                    {
+                      "id": 100,
+                      "policy_key": "testPC-100"
+                    },
+                    {
+                      "id": 101,
+                      "policy_key": "testPC-101"
+                    },
+                    {
+                      "id": 103,
+                      "policy_key": "testPC-103"
+                    }
+                    ]
+                  },
+                  "policys": [
+                  {
+                    "id": 100,
+                    "policy_key": "screen_saver",
+                    "description": "配置是否自动启用屏保，可设置自动启用时间",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 100,
+                      "setting_key": "time_out",
+                      "setting_val": 1
+                    }
+                    ]
+                  },
+                  {
+                    "id": 101,
+                    "policy_key": "close_screen",
+                    "description": "配置是否自动息屏，可设置自动息屏时间",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 101,
+                      "setting_key": "time_out",
+                      "setting_val": 1
+                    }
+                    ]
+                  },
+                  {
+                    "id": 102,
+                    "policy_key": "wallpaper",
+                    "description": "设置终端桌面壁纸，支持PNG、JPG格式图片，小于2M，推荐3:2比例",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 102,
+                      "setting_key": "wallpaper",
+                      "setting_val": "https://example.com/udcp/policy/data/wallpaper/111.ipg"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 103,
+                    "policy_key": "script",
+                    "description": "上传终端可执行的脚本，终端接收后自动执行",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 103,
+                      "setting_key": "script",
+                      "setting_val": "https://example.com/udcp/policy/data/script/update.sh"
+                    },
+                    {
+                      "id": 104,
+                      "setting_key": "script",
+                      "setting_val": "https://example.com/udcp/policy/data/script/update2.sh"
+                    },
+                    {
+                      "id": 105,
+                      "setting_key": "script",
+                      "setting_val": "https://example.com/udcp/policy/data/script/update5.sh"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 104,
+                    "policy_key": "shortcut",
+                    "description": "可配置是否允许使用系统快捷键",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 106,
+                      "setting_key": "shortcut",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 105,
+                    "policy_key": "taskbar",
+                    "description": "任务栏功能配置",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 106,
+                      "setting_key": "display_mode",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 107,
+                      "setting_key": "launcher",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 108,
+                      "setting_key": "right_menu",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 109,
+                      "setting_key": "dock_app",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 106,
+                    "policy_key": "app",
+                    "description": "任务栏右侧应用管理",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 110,
+                      "setting_key": "trash",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 107,
+                    "policy_key": "tray_icon",
+                    "description": "托盘区域功能管理",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 111,
+                      "setting_key": "network_tray_icon",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 112,
+                      "setting_key": "usb_tray_icon",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 109,
+                    "policy_key": "control_center",
+                    "description": "控制中心配置",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 114,
+                      "setting_key": "control_center_union_id",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 115,
+                      "setting_key": "control_center_display",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 116,
+                      "setting_key": "control_center_defapp",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 117,
+                      "setting_key": "control_center_personalization",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 118,
+                      "setting_key": "control_center_network",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 119,
+                      "setting_key": "control_center_sound",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 120,
+                      "setting_key": "control_center_bluetooth",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 121,
+                      "setting_key": "control_center_datetime",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 122,
+                      "setting_key": "control_center_notification",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 123,
+                      "setting_key": "control_center_power",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 124,
+                      "setting_key": "control_center_mouse",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 125,
+                      "setting_key": "control_center_wacom",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 126,
+                      "setting_key": "control_center_keyboard",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 127,
+                      "setting_key": "control_center_voice",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 128,
+                      "setting_key": "control_center_systeminfo",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 129,
+                      "setting_key": "control_center_commoninfo",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 110,
+                    "policy_key": "firewall",
+                    "description": "使用iptables配置终端防火墙策略",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 130,
+                      "setting_key": "firewall",
+                      "setting_val": ""
+                    }
+                    ]
+                  },
+                  {
+                    "id": 111,
+                    "policy_key": "install_apps",
+                    "description": "管理终端需要安装的应用清单",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 131,
+                      "setting_key": "firefox",
+                      "setting_val": "{\"policy_key\":\"firefox\",\"package_policy_key\":\"firefox\",\"version\":\"1.0.0.1\",\"architecture\":\"arm\"}"
+                    },
+                    {
+                      "id": 132,
+                      "setting_key": "chrome",
+                      "setting_val": "{\"policy_key\":\"chrome\",\"package_policy_key\":\"chrome\",\"version\":\"1.0.0.1\",\"architecture\":\"arm\"}"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 112,
+                    "policy_key": "user_password_strength",
+                    "description": "配置域管帐户的密码强度策略",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 133,
+                      "setting_key": "password_length",
+                      "setting_val": "[8,32]"
+                    }
+                    ]
+                  }
+                  ]
+                }
+              }
+      tags:
+        - policy, policy_group
+  /policy_group:
+    post:
+      summary:
+        新增策略组
+      parameters:
+        -
+          description: 策略组
+          name: policy_group
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/request.PolicyGroup'
+      responses:
+        # HTTP响应状态码
+        200:
+          description: 响应
+          schema:
+            type: object
+            properties:
+              code:
+                $ref: '#/definitions/response.Code'
+              msg:
+                $ref: '#/definitions/response.Msg'
+              data:
+                type: object
+      tags:
+        - policy, policy_group
+  /pc/policy_group:
+    get:
+      summary:
+        获取终端执行策略
+      parameters:
+        -
+          description: 终端id
+          name: machine_id
+          in: query
+          required: true
+          type: string
+      responses:
+        # HTTP响应状态码
+        200:
+          description: 响应
+          schema:
+            type: object
+            properties:
+              code:
+                $ref: '#/definitions/response.Code'
+              msg:
+                $ref: '#/definitions/response.Msg'
+              data:
+                $ref: '#/definitions/response.PolicyGroupInfo'
+      tags:
+        - pc, policy_group
+  /policy_task:
+    post:
+      summary:
+        策略同步，将策略计算结果创建任务，下发至执行对象
+      parameters:
+        -
+          description: 策略计算结果
+          name: policy_result
+          in: body
+          required: true
+          schema:
+            type: array
+            items:
+              description: 终端id
+              type: string
+      responses:
+        # HTTP响应状态码
+        200:
+          description: 响应
+          schema:
+            type: object
+            properties:
+              code:
+                $ref: '#/definitions/response.Code'
+              msg:
+                $ref: '#/definitions/response.Msg'
+              data:
+                type: object
+      tags:
+        - task, policy_group
+  /delpolicy_group:
+    delete:
+      summary:
+        删除策略组
+      parameters:
+        -
+          description: 策略组
+          name: policy_group
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/request.PolicyGroup'
+      responses:
+        # HTTP响应状态码
+        200:
+          description: 响应
+          schema:
+            type: object
+            properties:
+              code:
+                $ref: '#/definitions/response.Code'
+              msg:
+                $ref: '#/definitions/response.Msg'
+              data:
+                type: object
+      tags:
+        - policy, policy_group
+  /viewpolicy_relation:
+    get:
+      summary:
+        查看策略组关联关系
+
+      responses:
+        # HTTP响应状态码
+        200:
+          description: 响应
+          schema:
+            type: object
+            properties:
+              code:
+                $ref: '#/definitions/response.Code'
+              msg:
+                $ref: '#/definitions/response.Msg'
+              data:
+                type: object
+      tags:
+        - policy, policy_group
+  /sort_policy_group:
+    post:
+      summary:
+        策略组排序
+      parameters:
+        -
+          description: 策略组排序
+          name: policy_sorts
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/request.sorts'
+      responses:
+        # HTTP响应状态码
+        200:
+          description: 响应
+          schema:
+            type: object
+            properties:
+              code:
+                $ref: '#/definitions/response.Code'
+              msg:
+                $ref: '#/definitions/response.Msg'
+              data:
+                type: object
+      tags:
+        - policy, policy_group
+  /depart_policy:
+    get:
+      summary:
+        部门执行策略
+      parameters:
+        -
+          description: 组织id
+          name: depart_id
+          in: query
+          required: true
+          type: string
+      responses:
+        # HTTP响应状态码
+        200:
+          description: 响应
+          schema:
+            type: object
+            properties:
+              code:
+                $ref: '#/definitions/response.Code'
+              msg:
+                $ref: '#/definitions/response.Msg'
+              data:
+                $ref: '#/definitions/response.PolicyGroupInfo'
+            example:
+              {
+                "code": 0,
+                "msg": "",
+                "data": {
+                  "number": "PG-000001",
+                  "name": "策略组示例1",
+                  "force_publish": true,
+                  "disable": false,
+                  "remark": "示例",
+                  "created_at": "2021-01-01 20:00:00",
+                  "updated_at": "2021-01-01 20:00:00",
+                  "scope": {
+                    "departments": [
+                    {
+                      "id": 10,
+                      "policy_key": "研发一部"
+                    },
+                    {
+                      "id": 11,
+                      "policy_key": "研发二部"
+                    },
+                    {
+                      "id": 13,
+                      "policy_key": "研发四部"
+                    }
+                    ],
+                    "pc_type": [
+                      1
+                    ],
+                    "os_archs": [
+                      "amd",
+                      "arm",
+                      "mips"
+                    ],
+                    "os_versions": [
+                      "1020",
+                      "1021",
+                      "1022",
+                      "1030"
+                    ],
+                    "exec_type": 2,
+                    "pc_groups": [
+                    {
+                      "id": 100,
+                      "policy_key": "testPC-100"
+                    },
+                    {
+                      "id": 101,
+                      "policy_key": "testPC-101"
+                    },
+                    {
+                      "id": 103,
+                      "policy_key": "testPC-103"
+                    }
+                    ]
+                  },
+                  "policys": [
+                  {
+                    "id": 100,
+                    "policy_key": "screen_saver",
+                    "description": "配置是否自动启用屏保，可设置自动启用时间",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 100,
+                      "setting_key": "time_out",
+                      "setting_val": 1
+                    }
+                    ]
+                  },
+                  {
+                    "id": 101,
+                    "policy_key": "close_screen",
+                    "description": "配置是否自动息屏，可设置自动息屏时间",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 101,
+                      "setting_key": "time_out",
+                      "setting_val": 1
+                    }
+                    ]
+                  },
+                  {
+                    "id": 102,
+                    "policy_key": "wallpaper",
+                    "description": "设置终端桌面壁纸，支持PNG、JPG格式图片，小于2M，推荐3:2比例",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 102,
+                      "setting_key": "wallpaper",
+                      "setting_val": "https://example.com/udcp/policy/data/wallpaper/111.ipg"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 103,
+                    "policy_key": "script",
+                    "description": "上传终端可执行的脚本，终端接收后自动执行",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 103,
+                      "setting_key": "script",
+                      "setting_val": "https://example.com/udcp/policy/data/script/update.sh"
+                    },
+                    {
+                      "id": 104,
+                      "setting_key": "script",
+                      "setting_val": "https://example.com/udcp/policy/data/script/update2.sh"
+                    },
+                    {
+                      "id": 105,
+                      "setting_key": "script",
+                      "setting_val": "https://example.com/udcp/policy/data/script/update5.sh"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 104,
+                    "policy_key": "shortcut",
+                    "description": "可配置是否允许使用系统快捷键",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 106,
+                      "setting_key": "shortcut",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 105,
+                    "policy_key": "taskbar",
+                    "description": "任务栏功能配置",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 106,
+                      "setting_key": "display_mode",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 107,
+                      "setting_key": "launcher",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 108,
+                      "setting_key": "right_menu",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 109,
+                      "setting_key": "dock_app",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 106,
+                    "policy_key": "app",
+                    "description": "任务栏右侧应用管理",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 110,
+                      "setting_key": "trash",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 107,
+                    "policy_key": "tray_icon",
+                    "description": "托盘区域功能管理",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 111,
+                      "setting_key": "network_tray_icon",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 112,
+                      "setting_key": "usb_tray_icon",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 109,
+                    "policy_key": "control_center",
+                    "description": "控制中心配置",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 114,
+                      "setting_key": "control_center_union_id",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 115,
+                      "setting_key": "control_center_display",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 116,
+                      "setting_key": "control_center_defapp",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 117,
+                      "setting_key": "control_center_personalization",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 118,
+                      "setting_key": "control_center_network",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 119,
+                      "setting_key": "control_center_sound",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 120,
+                      "setting_key": "control_center_bluetooth",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 121,
+                      "setting_key": "control_center_datetime",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 122,
+                      "setting_key": "control_center_notification",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 123,
+                      "setting_key": "control_center_power",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 124,
+                      "setting_key": "control_center_mouse",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 125,
+                      "setting_key": "control_center_wacom",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 126,
+                      "setting_key": "control_center_keyboard",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 127,
+                      "setting_key": "control_center_voice",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 128,
+                      "setting_key": "control_center_systeminfo",
+                      "setting_val": "1"
+                    },
+                    {
+                      "id": 129,
+                      "setting_key": "control_center_commoninfo",
+                      "setting_val": "1"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 110,
+                    "policy_key": "firewall",
+                    "description": "使用iptables配置终端防火墙策略",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 130,
+                      "setting_key": "firewall",
+                      "setting_val": ""
+                    }
+                    ]
+                  },
+                  {
+                    "id": 111,
+                    "policy_key": "install_apps",
+                    "description": "管理终端需要安装的应用清单",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 131,
+                      "setting_key": "firefox",
+                      "setting_val": "{\"policy_key\":\"firefox\",\"package_policy_key\":\"firefox\",\"version\":\"1.0.0.1\",\"architecture\":\"arm\"}"
+                    },
+                    {
+                      "id": 132,
+                      "setting_key": "chrome",
+                      "setting_val": "{\"policy_key\":\"chrome\",\"package_policy_key\":\"chrome\",\"version\":\"1.0.0.1\",\"architecture\":\"arm\"}"
+                    }
+                    ]
+                  },
+                  {
+                    "id": 112,
+                    "policy_key": "user_password_strength",
+                    "description": "配置域管帐户的密码强度策略",
+                    "disable": true,
+                    "lock": false,
+                    "settings": [
+                    {
+                      "id": 133,
+                      "setting_key": "password_length",
+                      "setting_val": "[8,32]"
+                    }
+                    ]
+                  }
+                  ]
+                }
+              }
+      tags:
+        - policy, policy_group
+definitions:
+  # response.JSONResult:
+  #   type: object
+  #   properties:
+  #     code:
+  #       description: 业务状态码
+  #       type: integer
+  #     data:
+  #       description: 业务数据
+  #       type: object
+  #     msg:
+  #       description: 主要error信息
+  #       type: string
+  Common.Time.CreatedAt:
+    description: 创建时间，utc时间戳，单位秒
+    type: integer
+  Common.Time.UpdatedAt:
+    description: 更新时间，utc时间戳，单位秒
+    type: integer
+  response.Code:
+    description: 业务状态码
+    type: integer
+  response.Msg:
+    description: 提示信息
+    type: string
+  response.PolicyGroupInfo:
+    type: object
+    properties:
+      number:
+        description: 策略组编号
+        type: string
+      name:
+        description: 策略组名称
+        type: string
+      force_publish:
+        description: 是否强制发布
+        type: boolean
+      disable:
+        description: 是否禁用
+        type: boolean
+      remark:
+        description: 备注
+        type: string
+      created_at:
+        $ref: '#/definitions/Common.Time.CreatedAt'
+      updated_at:
+        $ref: '#/definitions/Common.Time.UpdatedAt'
+      scope:
+        $ref: '#/definitions/response.PolicyGroupScope'
+      policys:
+        type: array
+        items:
+          $ref: '#/definitions/response.Policy'
+  response.PolicyGroupScope:
+    description: 策略组执行范围
+    type: object
+    properties:
+      departments:
+        type: array
+        items:
+          $ref: '#/definitions/response.PlatformDepartment'
+      pc_types:
+        type: array
+        items:
+          $ref: '#/definitions/response.PCPlatform'
+      os_archs:
+        type: array
+        items:
+          $ref: '#/definitions/response.PCSystemArchitecture'
+      os_versions:
+        type: array
+        items:
+          $ref: '#/definitions/response.PCSystemVersion'
+      exec_type:
+        description: 执行方式，1-全部生效，2-部分生效，3-部分例外
+        type: integer
+      pc_groups:
+        type: array
+        items:
+          $ref: '#/definitions/response.PCGroup'
+  response.PlatformDepartment:
+    description: 平台部门
+    type: object
+    properties:
+      id:
+        description: 部门id
+        type: integer
+      name:
+        description: 部门名称
+        type: string
+  response.PCPlatform:
+    description: 终端平台，1-实体机
+    type: integer
+  response.PCSystemArchitecture:
+    description: 终端系统架构，1-X86，2-ARM，3-MIPS
+    type: string
+  response.PCSystemVersion:
+    description: 终端系统版本，如：1020，1021，1022，1030
+    type: string
+  response.PCGroup:
+    description: 终端组
+    type: object
+    properties:
+      id:
+        description: 终端id
+        type: integer
+      name:
+        description: 终端名称
+        type: string
+  response.Policy:
+    type: object
+    description: 策略
+    properties:
+      id:
+        description: 策略id
+        type: integer
+      name:
+        description: 策略名称，策略计算优先级的最小粒度
+        type: string
+      description:
+        description: 策略描述
+        type: string
+      is_enable:
+        description: 是否启用
+        type: boolean
+      is_lock:
+        description: 是否锁定
+        type: boolean
+      policy_sort:
+        description: 策略排序
+        type: boolean
+      configs:
+        description: 策略内具体配置
+        type: array
+        items:
+          $ref: '#/definitions/response.PolicyConfig'
+  response.PolicyConfig:
+    type: object
+    description: 策略内具体配置
+    properties:
+      id:
+        description: 配置id
+        type: integer
+      name:
+        description: 配置名称
+        type: string
+      description:
+        description: 配置描述
+        type: string
+      key:
+        description: 配置键
+        type: string
+      value:
+        description: 配置值
+        type: string
+      type:
+        description: 配置值类型，1-int，2-string，3-json序列化后字符串，4-包含多个值的列表，5-起止范围的列表，6-文件路径
+        type: string
+  request.PolicyGroup:
+    type: object
+    required:
+      - user_id
+      - number
+      - name
+      - force_publish
+      - disable
+      - scope
+      - policys
+    properties:
+      user_id:
+        description: 新增策略组的用户id
+        type: integer
+      number:
+        description: 策略组编号
+        type: string
+      name:
+        description: 策略组名称
+        type: string
+      force_publish:
+        description: 是否强制发布
+        type: boolean
+      disable:
+        description: 是否禁用
+        type: boolean
+      remark:
+        description: 备注
+        type: string
+      scope:
+        $ref: '#/definitions/request.PolicyGroupScope'
+      policys:
+        type: array
+        items:
+          $ref: '#/definitions/request.Policy'
+  request.PolicyGroupScope:
+    description: 策略组执行范围
+    type: object
+    required:
+      - departments
+      - pc_types
+      - os_archs
+      - os_versions
+      - exec_type
+      - pc_groups
+    properties:
+      departments:
+        type: array
+        items:
+          description: 组织id
+          type: integer
+      pc_types:
+        type: array
+        items:
+          $ref: '#/definitions/response.PCPlatform'
+      os_archs:
+        type: array
+        items:
+          $ref: '#/definitions/response.PCSystemArchitecture'
+      os_versions:
+        type: array
+        items:
+          $ref: '#/definitions/response.PCSystemVersion'
+      exec_type:
+        description: 执行方式，1-全部生效，2-部分生效，3-部分例外
+        type: integer
+      pc_groups:
+        type: array
+        items:
+          description: 终端组id
+          type: integer
+  request.sorts:
+    type: array
+    properties:
+      items:
+        $ref: '#/definitions/request.sortsItem'
+
+  request.sortsItem:
+    description: 终端组
+    type: object
+    properties:
+      id:
+        description: policyid
+        type: integer
+      sorting:
+        description: 排序值1
+        type: string
+
+  request.Policy:
+    description: 策略
+    type: object
+    required:
+      - policy_key
+      - policy_val
+      - is_enable
+    properties:
+      policy_key:
+        description: 策略键
+        type: string
+      policy_val:
+        description: 策略值
+        type: string
+      is_enable:
+        description: 是否启用
+        type: boolean
+      is_lock:
+        description: 是否锁定
+        type: boolean
+        default: false
+
+
+
+
+
+
+
+
+
